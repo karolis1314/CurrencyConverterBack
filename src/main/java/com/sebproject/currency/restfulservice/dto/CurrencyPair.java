@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Currency")
-public class LastChance {
+public class CurrencyPair {
 
     @Id
     private String name;
@@ -15,10 +15,10 @@ public class LastChance {
     @Column(name = "value")
     private String value;
 
-    public LastChance() {
+    public CurrencyPair() {
     }
 
-    public LastChance(String name, String value) {
+    public CurrencyPair(String name, String value) {
         this.name = name;
         this.value = value;
     }
@@ -41,7 +41,7 @@ public class LastChance {
 
     @Override
     public String toString() {
-        return "LastChance{" +
+        return "CurrencyPair{" +
                 "name='" + name + '\'' +
                 ", value='" + value + '\'' +
                 '}';
