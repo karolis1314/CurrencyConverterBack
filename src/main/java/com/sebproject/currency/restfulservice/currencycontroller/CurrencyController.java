@@ -7,6 +7,7 @@ import com.sebproject.currency.restfulservice.repo.PeriodRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +15,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sebproject.currency.restfulservice.model.Root;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/currency")
 public class CurrencyController {
 
     @Autowired
@@ -27,7 +31,7 @@ public class CurrencyController {
     @Autowired
     RestTemplate restTemplate = new RestTemplate();
 
-	//Getting all the current currency rates for euro.
+    //Getting all the current currency rates for euro.
     @GetMapping(path = "/current")
     public String getCurrent() {
         String url = "http://www.lb.lt/webservices/FxRates/FxRates.asmx/getCurrentFxRates?tp=LT";
@@ -44,8 +48,8 @@ public class CurrencyController {
 
     //Getting currency rate in between dates.
     @GetMapping(path = "/range/{ccy}/{from}/{to}")
-    public String getPeriod(@PathVariable String ccy,@PathVariable String from,@PathVariable String to) {
-        String url = "http://www.lb.lt/webservices/FxRates/FxRates.asmx/getFxRatesForCurrency?tp=LT&ccy="+ccy+"&dtFrom="+from+"&dtTo="+to;
+    public String getPeriod(@PathVariable String ccy, @PathVariable String from, @PathVariable String to) {
+        String url = "http://www.lb.lt/webservices/FxRates/FxRates.asmx/getFxRatesForCurrency?tp=LT&ccy=" + ccy + "&dtFrom=" + from + "&dtTo=" + to;
         periodRepo.deleteAll();
         ResponseEntity<Root[]> responseEntity =
                 restTemplate.getForEntity(url, Root[].class);
@@ -56,5 +60,42 @@ public class CurrencyController {
             periodRepo.save(currencyPeriod);
         }
         return "Successfully populated H2 with ranges.";
+    }
+
+    @GetMapping("/db/all")
+    public ResponseEntity<List<CurrencyPair>> getAll() {
+        try {
+            List<CurrencyPair> list = currencyRepo.findAll();
+            if (list.isEmpty()) {
+                return new ResponseEntity<List<CurrencyPair>>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<List<CurrencyPair>>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/db/one/{id}")
+    public ResponseEntity<CurrencyPair> getOneCurrency(@PathVariable("id") String id) {
+        Optional<CurrencyPair> list = currencyRepo.findById(id);
+
+        if (list.isPresent()) {
+            return new ResponseEntity<>(list.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/db/all/period")
+    public ResponseEntity<List<CurrencyPeriod>> getAllPeriods() {
+        try {
+            List<CurrencyPeriod> list = periodRepo.findAll();
+            if (list.isEmpty()) {
+                return new ResponseEntity<List<CurrencyPeriod>>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<List<CurrencyPeriod>>(list, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
