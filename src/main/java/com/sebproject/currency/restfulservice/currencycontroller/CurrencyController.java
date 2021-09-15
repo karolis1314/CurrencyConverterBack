@@ -32,6 +32,7 @@ public class CurrencyController {
     RestTemplate restTemplate = new RestTemplate();
 
     //Getting all the current currency rates for euro.
+    @CrossOrigin
     @GetMapping(path = "/current")
     public String getCurrent() {
         String url = "http://www.lb.lt/webservices/FxRates/FxRates.asmx/getCurrentFxRates?tp=LT";
@@ -47,6 +48,7 @@ public class CurrencyController {
     }
 
     //Getting currency rate in between dates.
+    @CrossOrigin
     @GetMapping(path = "/range/{ccy}/{from}/{to}")
     public String getPeriod(@PathVariable String ccy, @PathVariable String from, @PathVariable String to) {
         String url = "http://www.lb.lt/webservices/FxRates/FxRates.asmx/getFxRatesForCurrency?tp=LT&ccy=" + ccy + "&dtFrom=" + from + "&dtTo=" + to;
@@ -61,7 +63,7 @@ public class CurrencyController {
         }
         return "Successfully populated H2 with ranges.";
     }
-
+    @CrossOrigin
     @GetMapping("/db/all")
     public ResponseEntity<List<CurrencyPair>> getAll() {
         try {
@@ -74,7 +76,7 @@ public class CurrencyController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @CrossOrigin
     @GetMapping("/db/one/{id}")
     public ResponseEntity<CurrencyPair> getOneCurrency(@PathVariable("id") String id) {
         Optional<CurrencyPair> list = currencyRepo.findById(id);
@@ -85,7 +87,7 @@ public class CurrencyController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @CrossOrigin
     @GetMapping("/db/all/period")
     public ResponseEntity<List<CurrencyPeriod>> getAllPeriods() {
         try {
