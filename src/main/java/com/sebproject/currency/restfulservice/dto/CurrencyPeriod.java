@@ -5,9 +5,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "PERIOD")
 public class CurrencyPeriod {
+
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -22,6 +23,10 @@ public class CurrencyPeriod {
         this.name = name;
         this.range = range;
     }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     public String getName() {
         return name;

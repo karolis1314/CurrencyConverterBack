@@ -7,6 +7,7 @@ import com.sebproject.currency.restfulservice.repo.PeriodRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -53,6 +54,7 @@ public class CurrencyController {
     @GetMapping(path = "/range/{ccy}/{from}/{to}")
     public String getPeriod(@PathVariable String ccy,@PathVariable String from,@PathVariable String to) {
         String url = "http://www.lb.lt/webservices/FxRates/FxRates.asmx/getFxRatesForCurrency?tp=LT&ccy="+ccy+"&dtFrom="+from+"&dtTo="+to;
+        periodRepo.deleteAll();
         ResponseEntity<Root[]> responseEntity =
                 restTemplate.getForEntity(url, Root[].class);
         Root[] userArray = responseEntity.getBody();
