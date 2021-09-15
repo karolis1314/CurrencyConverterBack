@@ -4,28 +4,19 @@ import com.sebproject.currency.restfulservice.dto.CurrencyPair;
 import com.sebproject.currency.restfulservice.dto.CurrencyPeriod;
 import com.sebproject.currency.restfulservice.repo.CurrencyRepo;
 import com.sebproject.currency.restfulservice.repo.PeriodRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.sebproject.currency.restfulservice.model.Root;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-
 @RestController
+@RequestMapping("/currency")
 public class CurrencyController {
-
-    private CurrencyPair currencyPair;
-    private CurrencyPeriod currencyPeriod;
 
     @Autowired
     CurrencyRepo currencyRepo;
@@ -43,6 +34,7 @@ public class CurrencyController {
         ResponseEntity<Root[]> responseEntity =
                 restTemplate.getForEntity(url, Root[].class);
         Root[] userArray = responseEntity.getBody();
+        CurrencyPair currencyPair;
         for (Root user : userArray) {
             currencyPair = new CurrencyPair(user.getCcyAmt().getCcy(), user.getCcyAmt().getAmt());
             currencyRepo.save(currencyPair);
@@ -58,11 +50,11 @@ public class CurrencyController {
         ResponseEntity<Root[]> responseEntity =
                 restTemplate.getForEntity(url, Root[].class);
         Root[] userArray = responseEntity.getBody();
+        CurrencyPeriod currencyPeriod;
         for (Root user : userArray) {
             currencyPeriod = new CurrencyPeriod(user.getCcyAmt().getCcy(), user.getCcyAmt().getAmt());
             periodRepo.save(currencyPeriod);
         }
         return "Successfully populated H2 with ranges.";
     }
-
 }
