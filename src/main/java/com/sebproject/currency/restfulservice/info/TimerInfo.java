@@ -6,8 +6,8 @@ public class TimerInfo implements Serializable {
     private int totalFireCount;
     private int remainingFireCount;
     private boolean runForever;
-    private long repeatIntervalMs;
-    private long initialOffsetMs;
+    private int repeatIntervalMs;
+    private int initialOffsetMs;
     private String callbackData;
 
     public int getTotalFireCount() {
@@ -34,11 +34,11 @@ public class TimerInfo implements Serializable {
         this.runForever = runForever;
     }
 
-    public long getRepeatIntervalMs() {
+    public int getRepeatIntervalMs() {
         return repeatIntervalMs;
     }
 
-    public void setRepeatIntervalMs(long repeatIntervalMs) {
+    public void setRepeatIntervalMs(int repeatIntervalMs) {
         this.repeatIntervalMs = repeatIntervalMs;
     }
 
@@ -46,7 +46,7 @@ public class TimerInfo implements Serializable {
         return initialOffsetMs;
     }
 
-    public void setInitialOffsetMs(long initialOffsetMs) {
+    public void setInitialOffsetMs(int initialOffsetMs) {
         this.initialOffsetMs = initialOffsetMs;
     }
 

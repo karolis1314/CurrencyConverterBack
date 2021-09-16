@@ -20,7 +20,7 @@ public final class TimerUtils {
     }
 
     public static Trigger buildTrigger(final Class jobClass, final TimerInfo info) {
-        SimpleScheduleBuilder builder = SimpleScheduleBuilder.simpleSchedule().withIntervalInMilliseconds(info.getRepeatIntervalMs());
+        SimpleScheduleBuilder builder = SimpleScheduleBuilder.simpleSchedule().withIntervalInMinutes(info.getRepeatIntervalMs());
 
         if (info.isRunForever()) {
             builder = builder.repeatForever();

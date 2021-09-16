@@ -2,6 +2,7 @@ package com.sebproject.currency.restfulservice.currencycontroller;
 
 import com.sebproject.currency.restfulservice.dto.CurrencyPair;
 import com.sebproject.currency.restfulservice.dto.CurrencyPeriod;
+import com.sebproject.currency.restfulservice.playground.PlaygroundService;
 import com.sebproject.currency.restfulservice.repo.CurrencyRepo;
 import com.sebproject.currency.restfulservice.repo.PeriodRepo;
 
@@ -15,12 +16,18 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sebproject.currency.restfulservice.model.Root;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 public class CurrencyController {
+
+    private final PlaygroundService service;
+
+    @Autowired
+    public CurrencyController(PlaygroundService service) {
+        this.service = service;
+    }
 
     @Autowired
     CurrencyRepo currencyRepo;
@@ -30,6 +37,14 @@ public class CurrencyController {
 
     @Autowired
     RestTemplate restTemplate = new RestTemplate();
+
+
+
+
+    @GetMapping("/runJob")
+    public void runHelloWorldJob() {
+        service.runHelloWorldJob();
+    }
 
     //Getting all the current currency rates for euro.
     @CrossOrigin
