@@ -14,14 +14,14 @@ public class CurrencyPeriod {
     private String name;
 
     @Column(name = "value")
-    private String range;
+    private String value;
 
     public CurrencyPeriod() {
     }
 
-    public CurrencyPeriod(String name, String range) {
+    public CurrencyPeriod(String name, String value) {
         this.name = name;
-        this.range = range;
+        this.value = value;
     }
     public void setId(Long id) {
         this.id = id;
@@ -36,19 +36,19 @@ public class CurrencyPeriod {
         this.name = name;
     }
 
-    public String getRange() {
-        return range;
+    public String getValue() {
+        return value;
     }
 
-    public void setRange(String range) {
-        this.range = range;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @Override
     public String toString() {
         return "CurrencyPeriod{" +
                 "name='" + name + '\'' +
-                ", range='" + range + '\'' +
+                ", value='" + value + '\'' +
                 '}';
     }
 }
