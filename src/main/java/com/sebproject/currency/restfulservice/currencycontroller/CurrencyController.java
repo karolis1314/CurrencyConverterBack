@@ -2,7 +2,7 @@ package com.sebproject.currency.restfulservice.currencycontroller;
 
 import com.sebproject.currency.restfulservice.dto.CurrencyPair;
 import com.sebproject.currency.restfulservice.dto.CurrencyPeriod;
-import com.sebproject.currency.restfulservice.playground.PlaygroundService;
+import com.sebproject.currency.restfulservice.playground.JobService;
 import com.sebproject.currency.restfulservice.repo.CurrencyRepo;
 import com.sebproject.currency.restfulservice.repo.PeriodRepo;
 
@@ -22,10 +22,10 @@ import java.util.Optional;
 @RestController
 public class CurrencyController {
 
-    private final PlaygroundService service;
+    private final JobService service;
 
     @Autowired
-    public CurrencyController(PlaygroundService service) {
+    public CurrencyController(JobService service) {
         this.service = service;
     }
 
@@ -39,11 +39,11 @@ public class CurrencyController {
     RestTemplate restTemplate = new RestTemplate();
 
 
-
-
+    @CrossOrigin
     @GetMapping("/runJob")
-    public void runHelloWorldJob() {
-        service.runHelloWorldJob();
+    public String runTheLoadOfDbCurrent() {
+        service.runFetchAllToday();
+        return "Test";
     }
 
     //Getting all the current currency rates for euro.

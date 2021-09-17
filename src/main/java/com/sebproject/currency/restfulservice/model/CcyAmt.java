@@ -1,9 +1,5 @@
 package com.sebproject.currency.restfulservice.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CcyAmt {

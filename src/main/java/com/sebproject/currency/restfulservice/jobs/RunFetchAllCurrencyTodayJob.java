@@ -1,6 +1,4 @@
 package com.sebproject.currency.restfulservice.jobs;
-
-import com.sebproject.currency.restfulservice.currencycontroller.CurrencyController;
 import com.sebproject.currency.restfulservice.dto.CurrencyPair;
 import com.sebproject.currency.restfulservice.info.TimerInfo;
 import com.sebproject.currency.restfulservice.model.Root;
@@ -16,8 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class HelloWorldJob implements Job {
-    private static final Logger LOG = LoggerFactory.getLogger(HelloWorldJob.class);
+public class RunFetchAllCurrencyTodayJob implements Job {
+    private static final Logger LOG = LoggerFactory.getLogger(RunFetchAllCurrencyTodayJob.class);
 
     @Autowired
     CurrencyRepo currencyRepo;
@@ -25,7 +23,7 @@ public class HelloWorldJob implements Job {
     @Override
     public void execute(JobExecutionContext context) {
         JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();
-        TimerInfo info = (TimerInfo) jobDataMap.get(HelloWorldJob.class.getSimpleName());
+        TimerInfo info = (TimerInfo) jobDataMap.get(RunFetchAllCurrencyTodayJob.class.getSimpleName());
         LOG.info("Remaining fire count is '{}'", info.getRemainingFireCount());
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://www.lb.lt/webservices/FxRates/FxRates.asmx/getCurrentFxRates?tp=LT";
