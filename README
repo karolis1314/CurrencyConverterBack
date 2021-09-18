@@ -1,0 +1,10 @@
+Backendas, naudoja springboot, h2 ir quartz kaip ir prasyta.
+Pirmas quartz job bus paleistas kai paleisite front end puse, funkcija aktyvuosis ir paprasys backend paleisti pirmaji darba, nuo tada kas 24h bus atnaujinama h2 su kasdieniu valiutu kursu.
+Yra pridetas docker file kurio pagalba galite susikurti image ir paleisti ji i docker env.
+Unit test, Contract test ar Integration test nerasiau, nes turbut butu uztruke ilgiau nei norima.
+Per didesni laiko tarpa dizainas gali buti pakeistas i profesionalesni varianta, metodai suskaldyti i mazesnes uzduotis.
+Nepamirskite MVN clean install, bet turetu nereiketi.
+
+Uzduotis atliktos kaip ir prasyme, data atlikimo 18-09-2021
+
+Jei kils klausimu del kazko, prasau susiekite.
