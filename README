@@ -1,4 +1,5 @@
-# sebBackend
+#sebBackend
+
 Backendas, naudoja springboot, h2 ir quartz kaip ir prasyta.
 Pirmas quartz job bus paleistas kai paleisite front end puse, funkcija aktyvuosis ir paprasys backend paleisti pirmaji darba, nuo tada kas 24h bus atnaujinama h2 su kasdieniu valiutu kursu.
 Yra pridetas docker file kurio pagalba galite susikurti image ir paleisti ji i docker env.
