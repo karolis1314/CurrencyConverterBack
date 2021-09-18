@@ -62,7 +62,7 @@ public class CurrencyController {
         return "Successfully populated H2 with current.";
     }
 
-    //Getting currency rate in between dates.
+    //Getting currency period.
     @CrossOrigin
     @GetMapping(path = "/range/{ccy}/{from}/{to}")
     public String getPeriod(@PathVariable String ccy, @PathVariable String from, @PathVariable String to) {
@@ -78,6 +78,8 @@ public class CurrencyController {
         }
         return "Successfully populated H2 with ranges.";
     }
+
+    //Getting all the data from the h2.
     @CrossOrigin
     @GetMapping("/db/all")
     public ResponseEntity<List<CurrencyPair>> getAll() {
@@ -91,6 +93,8 @@ public class CurrencyController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    //Getting a single currency value with a name from the h2.
     @CrossOrigin
     @GetMapping("/db/one/{id}")
     public ResponseEntity<CurrencyPair> getOneCurrency(@PathVariable("id") String id) {
@@ -102,6 +106,8 @@ public class CurrencyController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    //Getting all the periods stored in the h2.
     @CrossOrigin
     @GetMapping("/db/all/period")
     public ResponseEntity<List<CurrencyPeriod>> getAllPeriods() {
@@ -112,7 +118,7 @@ public class CurrencyController {
             }
             return new ResponseEntity<List<CurrencyPeriod>>(list, HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }

@@ -21,7 +21,7 @@ public class JobService {
         final TimerInfo info = new TimerInfo();
         info.setTotalFireCount(7);
         info.setRemainingFireCount(info.getTotalFireCount());
-        info.setRepeatIntervalMs(1);
+        info.setRepeatIntervalMs(1440);
         info.setInitialOffsetMs(1);
         info.setCallbackData("My callback data");
 
