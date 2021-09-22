@@ -22,12 +22,6 @@ import java.util.Optional;
 @RestController
 public class CurrencyController {
 
-    private final JobService service;
-
-    @Autowired
-    public CurrencyController(JobService service) {
-        this.service = service;
-    }
 
     @Autowired
     CurrencyRepo currencyRepo;
@@ -37,14 +31,6 @@ public class CurrencyController {
 
     @Autowired
     RestTemplate restTemplate = new RestTemplate();
-
-
-    @CrossOrigin
-    @GetMapping("/runJob")
-    public String runTheLoadOfDbCurrent() {
-        service.runFetchAllToday();
-        return "Test";
-    }
 
     //Getting all the current currency rates for euro.
     @CrossOrigin
@@ -73,7 +59,7 @@ public class CurrencyController {
         Root[] userArray = responseEntity.getBody();
         CurrencyPeriod currencyPeriod;
         for (Root user : userArray) {
-            currencyPeriod = new CurrencyPeriod(user.getCcyAmt().getCcy(), user.getCcyAmt().getAmt());
+            currencyPeriod = new CurrencyPeriod(user.getCcyAmt().getCcy(), user.getCcyAmt().getAmt(), user.getDt());
             periodRepo.save(currencyPeriod);
         }
         return "Successfully populated H2 with ranges.";

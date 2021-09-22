@@ -16,15 +16,28 @@ public class CurrencyPeriod {
     @Column(name = "value")
     private String value;
 
+    @Column(name = "date")
+    private String date;
+
+
+
     public CurrencyPeriod() {
     }
 
-    public CurrencyPeriod(String name, String value) {
+    public CurrencyPeriod(String name, String value, String date) {
         this.name = name;
         this.value = value;
+        this.date = date;
     }
     public void setId(Long id) {
         this.id = id;
+    }
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
 
@@ -47,8 +60,10 @@ public class CurrencyPeriod {
     @Override
     public String toString() {
         return "CurrencyPeriod{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", value='" + value + '\'' +
+                ", date='" + date + '\'' +
                 '}';
     }
 }
